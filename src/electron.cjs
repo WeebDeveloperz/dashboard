@@ -17,13 +17,13 @@ let mainWindow;
 
 function createWindow() {
 	let windowState = windowStateManager({
-		defaultWidth: 800,
-		defaultHeight: 600,
+		defaultWidth: 1400,
+		defaultHeight: 800,
 	});
 
 	const mainWindow = new BrowserWindow({
 		backgroundColor: 'whitesmoke',
-		titleBarStyle: 'hidden',
+		//titleBarStyle: 'hidden',
 		autoHideMenuBar: true,
 		trafficLightPosition: {
 			x: 17,
