@@ -21,6 +21,8 @@
   import { fade } from 'svelte/transition';
   import FileEditor from "../../components/FileEditor.svelte";
   import { File } from "../../classes.js";
+  import Fa from 'svelte-fa/src/fa.svelte'
+  import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
   // NOTE: this function does absolutely nothing and
   // for now that is intentional. please don't exile me
@@ -34,10 +36,8 @@
 
   let files = [];
   const loadFiles = () =>
-    fetch('http://localhost:6969/files', { mode: "no-cors" })
-      .then(response => {
-        return response.json();
-      })
+    fetch('http://localhost:6969/files')
+      .then(response => response.json())
       .then(data => files = data.data);
 
   onMount(async () => {
@@ -63,6 +63,12 @@
     handleCancel();
   }
 </script>
+
+<div class="back-button">
+  <a href="/">
+    <Fa icon={faArrowLeft} />
+  </a>
+</div>
 
 <div class="searchbox">
   Search Files (disabled temporarily) <input bind:value={searchString}/>
@@ -130,5 +136,15 @@
     height: 40vh;
     width: 60vw;
     box-shadow: 0.1rem 0.1rem 0.3rem 0.05rem rgba(35, 38, 39, 0.7);
+  }
+  .back-button {
+    font-size: 2rem;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+  }
+  .back-button a {
+    color: black;
+    text-decoration: none;
   }
 </style>

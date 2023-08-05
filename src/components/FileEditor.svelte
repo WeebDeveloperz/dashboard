@@ -48,7 +48,6 @@
     data.append("passwd", password);
 
     const res = await fetch("http://localhost:6969/files", {
-      mode: "no-cors",
       method: method,
       body: data
     })

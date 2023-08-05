@@ -21,6 +21,8 @@
   import { fade } from 'svelte/transition';
   import SubjectsEditor from "../../components/SubjectsEditor.svelte";
   import { Subject } from "../../classes.js";
+  import Fa from 'svelte-fa/src/fa.svelte'
+  import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
   // TODO: optionally filter by branch
   const filterSubjects = (subjects, searchString) => [...new Set([
@@ -39,6 +41,9 @@
         console.log(data)
         subjects = data.data
       });
+
+      //.then(response => response.json())
+      //.then(data => files = data.data);
 
   onMount(async () => {
     loadSubjects();
@@ -63,6 +68,12 @@
     handleCancel();
   }
 </script>
+
+<div class="back-button">
+  <a href="/">
+    <Fa icon={faArrowLeft} />
+  </a>
+</div>
 
 <div class="searchbox">
   Search Subjects <input bind:value={searchString}/>
@@ -136,5 +147,15 @@
     height: 40vh;
     width: 60vw;
     box-shadow: 0.1rem 0.1rem 0.3rem 0.05rem rgba(35, 38, 39, 0.7);
+  }
+  .back-button {
+    font-size: 2rem;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+  }
+  .back-button a {
+    color: black;
+    text-decoration: none;
   }
 </style>
