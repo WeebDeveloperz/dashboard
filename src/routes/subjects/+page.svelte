@@ -23,6 +23,7 @@
   import { Subject } from "../../classes.js";
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+  import { BASE_URL } from "../../config.js"
 
   // TODO: optionally filter by branch
   const filterSubjects = (subjects, searchString) => [...new Set([
@@ -32,7 +33,7 @@
 
   let subjects = [];
   const loadSubjects = () =>
-    fetch('http://localhost:6969/subjects')
+    fetch(BASE_URL + 'subjects')
       .then(response => {
         console.log(response)
         return response.json()

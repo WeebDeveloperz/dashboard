@@ -23,6 +23,7 @@
   import { File } from "../../classes.js";
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+  import { BASE_URL } from "../../config.js"
 
   // NOTE: this function does absolutely nothing and
   // for now that is intentional. please don't exile me
@@ -36,7 +37,7 @@
 
   let files = [];
   const loadFiles = () =>
-    fetch('http://localhost:6969/files')
+    fetch(BASE_URL + 'files')
       .then(response => response.json())
       .then(data => files = data.data);
 
