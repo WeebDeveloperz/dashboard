@@ -16,21 +16,62 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<div class="menu">
-  <a href="/files"><button>Files</button></a>
-  <a href="/subjects"><button>Subjects</button></a>
+<script>
+  let username = "";
+  let password = "";
+  let noticeText = "";
+</script>
+
+<div class="login-page">
+  <h4 class="notice warning">{noticeText}</h4>
+  <h1>Please Log In</h1>
+
+  <div class="fields">
+    <div class="field">
+      Username:
+      <input bind:value={username} placeholder="Username">
+    </div>
+    <div class="field">
+      Password:
+      <input bind:value={password} placeholder="Password">
+    </div>
+    <div class="button-wrapper">
+      <button>Log In</button>
+    </div>
+  </div>
 </div>
 
 <style>
-  .menu {
-    position: fixed;
-    margin: auto;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    height: 2rem;
-    width: 20rem;
+  .login-page {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
+  .button-wrapper {
+    width: 30rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .field {
+    width: 30rem;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+  }
+  .field input, .field select {
+    width: 60%;
+  }
+  .warning {
+    color: red;
+  }
+  .notice {
+    position: absolute;
+    top: 2rem;
+    left: 0; right: 0;
+    margin: auto;
+    text-align: center;
   }
   button {
     width: 6rem;
