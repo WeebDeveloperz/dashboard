@@ -16,6 +16,15 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 
+<script>
+  import { onMount } from 'svelte';
+  onMount(_ => {
+    if (!sessionStorage.getItem("authtoken")) {
+      window.location.replace("/");
+    }
+  });
+</script>
+
 <div class="menu">
   <a href="/files"><button>Files</button></a>
   <a href="/subjects"><button>Subjects</button></a>

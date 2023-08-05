@@ -17,13 +17,37 @@
 -->
 
 <script>
+  import { BASE_URL } from "../config.js"
   let username = "";
   let password = "";
   let noticeText = "";
+
+  const handleLogin = _ => {
+    noticeText = password == "" ? "Password Can't Be Blank." : ""
+    if (noticeText != "") return;
+
+    const data = new FormData();
+    data.append("username", username);
+    data.append("password", password)
+
+    const res = fetch(BASE_URL + "auth/login", {
+      method: "POST",
+      body: data
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        if (data.error) {
+          noticeText = `Error: ${data.error}`;
+        } else {
+          sessionStorage.setItem("authtoken", data.token);
+          window.location.replace("/home");
+        }
+      });
+  }
 </script>
 
 <div class="login-page">
-  <h4 class="notice warning">{noticeText}</h4>
   <h1>Please Log In</h1>
 
   <div class="fields">
@@ -36,8 +60,9 @@
       <input bind:value={password} placeholder="Password">
     </div>
     <div class="button-wrapper">
-      <button>Log In</button>
+      <button on:click={handleLogin}>Log In</button>
     </div>
+    <h4 class="notice warning">{noticeText}</h4>
   </div>
 </div>
 
@@ -54,6 +79,9 @@
     display: flex;
     justify-content: flex-end;
   }
+  .fields {
+    position: relative;
+  }
   .field {
     width: 30rem;
     display: flex;
@@ -63,15 +91,16 @@
   .field input, .field select {
     width: 60%;
   }
-  .warning {
-    color: red;
-  }
   .notice {
     position: absolute;
-    top: 2rem;
+    bottom: -3rem;
+    text-align: center;
+
     left: 0; right: 0;
     margin: auto;
-    text-align: center;
+  }
+  .warning {
+    color: red;
   }
   button {
     width: 6rem;

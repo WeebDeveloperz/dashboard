@@ -47,6 +47,9 @@
       //.then(data => files = data.data);
 
   onMount(async () => {
+    if (!sessionStorage.getItem("authtoken")) {
+      window.location.replace("/");
+    }
     loadSubjects();
   })
 
@@ -71,7 +74,7 @@
 </script>
 
 <div class="back-button">
-  <a href="/">
+  <a href="/home">
     <Fa icon={faArrowLeft} />
   </a>
 </div>

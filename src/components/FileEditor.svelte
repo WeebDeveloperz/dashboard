@@ -18,12 +18,11 @@
 
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { BASE_URL } from "../config.js"
 
   const dispatch = createEventDispatcher();
 
   export let file = null;
-  let storedPassword = sessionStorage.getItem("password")
-  let password = storedPassword ? storedPassword : "";
   let fObject = null;
 
   let noticeText = ""
@@ -38,23 +37,22 @@
   const handleSave = async(method) => {
     noticeText = validate(file);
     if (noticeText != "" && method !== "delete") return;
-    noticeText = password == "" ? "Password Can't Be Blank." : ""
     noticeText = method === "put" ? "File updation is disabled. Please delete file and upload again." : "";
     if (noticeText != "") return;
 
     const data = new FormData();
     data.append("data", JSON.stringify(file));
     data.append("file", fObject)
-    data.append("passwd", password);
+    data.append("token", sessionStorage.getItem("authtoken"));
 
-    const res = await fetch("http://localhost:6969/files", {
+    const res = await fetch(BASE_URL + "files", {
       method: method,
       body: data
     })
       .then(response => response.json())
       .then(r => {
-        if (r.error == "Incorrect Password.") {
-          noticeText = "Incorrect Password."
+        if (r.error) {
+          alert(r.error)
         } else {
           dispatch("files-updated", {});
         }
@@ -84,7 +82,6 @@
     </div>
   {/if}
   <div class="options">
-    <input bind:value={password} placeholder="Enter the password here.">
     <button on:click={handleCancel}>Cancel</button>
     <button on:click={e => handleSave(file.id == null ? "post" : "put")}>Save</button>
   </div>

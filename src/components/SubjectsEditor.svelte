@@ -18,12 +18,11 @@
 
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { BASE_URL } from "../config.js"
 
   const dispatch = createEventDispatcher();
 
   export let subject = null;
-  let storedPassword = sessionStorage.getItem("password")
-  let password = storedPassword ? storedPassword : "";
 
   let noticeText = ""
   const validate = (subject) => {
@@ -35,22 +34,21 @@
   const handleSave = async(method) => {
     noticeText = validate(subject);
     if (noticeText != "" && method !== "delete") return;
-    noticeText = password == "" ? "Password Can't Be Blank." : ""
     if (noticeText != "") return;
 
     subject.sem = parseInt(subject.sem)
     const data = new FormData();
     data.append("data", JSON.stringify(subject));
-    data.append("passwd", password);
+    data.append("token", sessionStorage.getItem("authtoken"));
 
-    const res = await fetch("http://localhost:6969/subjects", {
+    const res = await fetch(BASE_URL + "subjects", {
       method: method,
       body: data
     })
       .then(response => response.json())
       .then(data => {
-        if (data.error == "Incorrect Password.") {
-          noticeText = "Incorrect Password."
+        if (data.error) {
+          alert(data.error)
         } else {
           dispatch("subjects-updated", {});
         }
@@ -88,7 +86,6 @@
     </div>
   {/if}
   <div class="options">
-    <input bind:value={password} placeholder="Enter the password here.">
     <button on:click={handleCancel}>Cancel</button>
     <button on:click={() => handleSave(subject.id == null ? "post" : "put")}>Save</button>
   </div>
