@@ -80,14 +80,17 @@
       <input bind:value={subject.code} placeholder="Subject Code">
     </div>
   </div>
-  {#if subject.id != null}
-    <div class="options-alt">
-      <button on:click={() => handleSave("delete")}>Delete</button>
+
+  <div class="options-wrapper">
+    <div class="options">
+      {#if subject.id != null}
+        <button on:click={() => handleSave("delete")}>Delete</button>
+      {/if}
     </div>
-  {/if}
-  <div class="options">
-    <button on:click={handleCancel}>Cancel</button>
-    <button on:click={() => handleSave(subject.id == null ? "post" : "put")}>Save</button>
+    <div class="options">
+      <button on:click={handleCancel}>Cancel</button>
+      <button on:click={() => handleSave(subject.id == null ? "post" : "put")}>Save</button>
+    </div>
   </div>
 </div>
 
@@ -108,13 +111,19 @@
     width: 12rem;
     justify-content: space-between;
   }
-  .options {
+  .options-wrapper {
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: calc(100% - 6rem);
+    margin: auto;
     position: absolute;
     bottom: 3rem;
-    right: 4rem;
     display: flex;
-    width: 32rem;
     justify-content: space-between;
+  }
+  .options {
+    display: flex;
+    gap: 1.5rem;
   }
   button {
     width: 5rem;

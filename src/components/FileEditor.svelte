@@ -76,14 +76,16 @@
       <input type="file" accept=".pdf" on:change={e => fObject = e.target.files[0]}>
     </div>
   </div>
-  {#if file.id != null}
-    <div class="options-alt">
-      <button on:click={() => handleSave("delete")}>Delete</button>
+  <div class="options-wrapper">
+    <div class="options">
+      {#if file.id != null}
+        <button on:click={() => handleSave("delete")}>Delete</button>
+      {/if}
     </div>
-  {/if}
-  <div class="options">
-    <button on:click={handleCancel}>Cancel</button>
-    <button on:click={e => handleSave(file.id == null ? "post" : "put")}>Save</button>
+    <div class="options">
+      <button on:click={handleCancel}>Cancel</button>
+      <button on:click={e => handleSave(file.id == null ? "post" : "put")}>Save</button>
+    </div>
   </div>
 </div>
 
@@ -96,21 +98,19 @@
     justify-content: space-around;
     align-items: center;
   }
-  .options-alt {
+  .options-wrapper {
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: calc(100% - 6rem);
+    margin: auto;
     position: absolute;
     bottom: 3rem;
-    left: 4rem;
     display: flex;
-    width: 12rem;
     justify-content: space-between;
   }
   .options {
-    position: absolute;
-    bottom: 3rem;
-    right: 4rem;
     display: flex;
-    width: 32rem;
-    justify-content: space-between;
+    gap: 1.5rem;
   }
   button {
     width: 5rem;
