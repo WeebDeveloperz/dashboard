@@ -34,6 +34,13 @@
     return "";
   }
 
+  let subjects = [];
+  const loadSubjects = () =>
+    fetch(BASE_URL + 'subjects')
+      .then(response => response.json())
+      .then(data => subjects = data.data);
+  loadSubjects();
+
   const handleSave = async(method) => {
     noticeText = validate(file);
     if (noticeText != "" && method !== "delete") return;
@@ -70,6 +77,19 @@
     <div class="field">
       File Name:
       <input bind:value={file.name} placeholder="File Name">
+    </div>
+    <div class="field">
+      Subject:
+      <select bind:value={file.subject}>
+        <option value="" disabled selected>
+          Please Select
+        </option>
+        {#each subjects as sub}
+          <option value={sub}>
+            {`${sub.name} (${sub.branch} sem ${sub.sem})`}
+          </option>
+        {/each}
+      </select>
     </div>
     <div class="field">
       Upload File:

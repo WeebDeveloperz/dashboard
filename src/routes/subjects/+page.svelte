@@ -34,17 +34,8 @@
   let subjects = [];
   const loadSubjects = () =>
     fetch(BASE_URL + 'subjects')
-      .then(response => {
-        console.log(response)
-        return response.json()
-      })
-      .then(data => {
-        console.log(data)
-        subjects = data.data
-      });
-
-      //.then(response => response.json())
-      //.then(data => files = data.data);
+      .then(response => response.json())
+      .then(data => subjects = data.data);
 
   onMount(async () => {
     if (!sessionStorage.getItem("authtoken")) {

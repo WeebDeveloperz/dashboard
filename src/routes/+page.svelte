@@ -23,7 +23,8 @@
   let noticeText = "";
 
   const handleLogin = _ => {
-    noticeText = password == "" ? "Password Can't Be Blank." : ""
+    noticeText = username == "" ? "Username Can't Be Blank." : ""
+    noticeText = noticeText == "" ? (password == "" ? "Password Can't Be Blank." : "") : noticeText;
     if (noticeText != "") return;
 
     const data = new FormData();
@@ -57,7 +58,7 @@
     </div>
     <div class="field">
       Password:
-      <input bind:value={password} placeholder="Password">
+      <input type="password" bind:value={password} placeholder="Password">
     </div>
     <div class="button-wrapper">
       <button on:click={handleLogin}>Log In</button>

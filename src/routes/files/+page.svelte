@@ -88,12 +88,16 @@
 <table in:fade="{{ duration: 200, delay: 100 }}" out:fade="{{ duration: 300, delay: 0 }}">
   <tr>
     <th>File Name</th>
+    <th>File Path</th>
+    <th>Subject Name / Code</th>
     <button on:click={handleAddNew}>Add New</button>
   </tr>
   {#if files != []}
     {#each filterFiles(files, searchString) as f}
       <tr>
         <td>{f.name}</td>
+        <td>{f.path}</td>
+        <td>{f.subject.name} / {f.subject.code}</td>
         <button on:click={() => {showEditor = true; editorFile = f}}>
           Edit
         </button>
