@@ -1,6 +1,5 @@
 const windowStateManager = require('electron-window-state');
 const { app, BrowserWindow, ipcMain } = require('electron');
-const contextMenu = require('electron-context-menu');
 const serve = require('electron-serve');
 const path = require('path');
 
@@ -22,15 +21,9 @@ function createWindow() {
 	});
 
 	const mainWindow = new BrowserWindow({
-		backgroundColor: 'whitesmoke',
-		//titleBarStyle: 'hidden',
 		autoHideMenuBar: true,
-		trafficLightPosition: {
-			x: 17,
-			y: 32,
-		},
-		minHeight: 950,
-		minWidth: 1100,
+		minHeight: 600,
+		minWidth: 800,
 		webPreferences: {
             webSecurity: false,
 			enableRemoteModule: true,
@@ -60,17 +53,6 @@ function createWindow() {
 	return mainWindow;
 }
 
-contextMenu({
-	showLookUpSelection: false,
-	showSearchWithGoogle: false,
-	showCopyImage: false,
-	prepend: (defaultActions, params, browserWindow) => [
-		{
-			label: 'Make App 💻',
-		},
-	],
-});
-
 function loadVite(port) {
 	mainWindow.loadURL(`http://localhost:${port}`).catch((e) => {
 		console.log('Error loading URL, retrying', e);
@@ -98,8 +80,4 @@ app.on('activate', () => {
 });
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') app.quit();
-});
-
-ipcMain.on('to-main', (event, count) => {
-	return mainWindow.webContents.send('from-main', `next count is ${count + 1}`);
 });

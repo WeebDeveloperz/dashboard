@@ -118,6 +118,9 @@
 {/if}
 
 <style>
+  * {
+    font-family: sans-serif;
+  }
   button {
     width: 7rem;
   }

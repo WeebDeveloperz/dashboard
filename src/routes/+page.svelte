@@ -68,6 +68,9 @@
 </div>
 
 <style>
+  * {
+    font-family: sans-serif;
+  }
   .login-page {
     display: flex;
     flex-direction: column;

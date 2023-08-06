@@ -31,6 +31,9 @@
 </div>
 
 <style>
+  * {
+    font-family: sans-serif;
+  }
   .menu {
     position: fixed;
     margin: auto;
