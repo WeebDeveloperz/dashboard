@@ -96,7 +96,7 @@
     {#each filterFiles(files, searchString) as f}
       <tr>
         <td>{f.name}</td>
-        <td>{f.path}</td>
+        <td><a href={`${BASE_URL}data/${f.path}`}>{f.path}</a></td>
         <td>{f.subject.name} / {f.subject.code}</td>
         <button on:click={() => {showEditor = true; editorFile = f}}>
           Edit
