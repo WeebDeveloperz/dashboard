@@ -72,11 +72,41 @@
     font-family: sans-serif;
   }
   .login-page {
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 90vh;
+  }
+  input {
+    background-color: #232627;
+    border: 1px solid #dfdfdf;
+    padding: 0.3rem;
+    font-size: 0.9em;
+    outline: 0;
+    border-radius: 4px;
+    color: white;
+    box-sizing: border-box;
+  }
+  input:focus {
+    border: 1px solid #b481da;
+  }
+  input::placeholder {
+    color: gray;
+  }
+  button {
+    border-radius: 4px;
+    border: 1px solid #b481da;
+    background-color: #232627;
+    color: white;
+    transition: background-color 0.2s, color 0.2s;
+    width: 7rem;
+  }
+  button:hover, button:focus {
+    outline: 0;
+    background-color: #b481da;
+    color: #232627;
   }
   .button-wrapper {
     width: 30rem;
@@ -90,6 +120,7 @@
     width: 30rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 0.5rem 0;
   }
   .field input, .field select {

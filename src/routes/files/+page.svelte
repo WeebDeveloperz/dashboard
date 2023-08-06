@@ -121,8 +121,38 @@
   * {
     font-family: sans-serif;
   }
+  h1 {
+    color: white;
+  }
+  input {
+    background-color: #232627;
+    border: 1px solid #dfdfdf;
+    padding: 0.3rem;
+    font-size: 0.9em;
+    outline: 0;
+    border-radius: 4px;
+    color: white;
+    box-sizing: border-box;
+  }
+  input:focus {
+    border: 1px solid #b481da;
+  }
+  input::placeholder {
+    color: gray;
+  }
   button {
+    padding: 0.4rem 0.2rem;
+    border-radius: 4px;
+    border: 1px solid #b481da;
+    background-color: #232627;
+    color: white;
+    transition: background-color 0.2s, color 0.2s;
     width: 7rem;
+  }
+  button:hover, button:focus {
+    outline: 0;
+    background-color: #b481da;
+    color: #232627;
   }
   .searchbox {
     width: 100%;
@@ -130,6 +160,7 @@
     justify-content: center;
     align-items: center;
     margin: 2rem 0;
+    color: white;
   }
   .searchbox input {
     margin-left: 1rem;
@@ -137,24 +168,24 @@
   table {
     width: 80%;
     margin: auto;
+    color: white;
   }
   th, td {
     text-align: left;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid gray;
   }
   .editor-parent {
     z-index: 10;
-    background-color: white;
+    background-color: #232627;
     position: fixed;
     top: 0; bottom: 0;
     left: 0; right: 0;
     margin: auto;
-    border: 1px solid black;
+    border: 1px solid #b481da;
     max-height: 90%;
     max-width: 90%;
     height: 30rem;
     width: 70rem;
-    box-shadow: 0.1rem 0.1rem 0.3rem 0.05rem rgba(35, 38, 39, 0.7);
   }
   .back-button, .reload-button {
     font-size: 2rem;
@@ -162,8 +193,12 @@
     top: 1rem;
   }
   .back-button a, .reload-button a {
-    color: black;
+    color: white;
     text-decoration: none;
+  }
+  .back-button a:hover,
+  .reload-button a:hover {
+    color: #b481da;
   }
   .back-button { left: 1rem; }
   .reload-button { right: 1rem; }

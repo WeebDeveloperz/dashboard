@@ -21,6 +21,7 @@ function createWindow() {
 	});
 
 	const mainWindow = new BrowserWindow({
+        backgroundColor: "#212121",
 		autoHideMenuBar: true,
 		minHeight: 600,
 		minWidth: 800,

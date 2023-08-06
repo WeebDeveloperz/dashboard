@@ -26,13 +26,25 @@
 </script>
 
 <div class="menu">
-  <a href="/files"><button>Files</button></a>
-  <a href="/subjects"><button>Subjects</button></a>
+  <a><button on:click={_ => window.location.replace("/files")}>Files</button></a>
+  <a><button on:click={_ => window.location.replace("/subjects")}>Subjects</button></a>
 </div>
 
 <style>
   * {
     font-family: sans-serif;
+  }
+  button {
+    border-radius: 4px;
+    border: 1px solid #b481da;
+    background-color: #232627;
+    color: white;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  button:hover, button:focus {
+    outline: 0;
+    background-color: #b481da;
+    color: #232627;
   }
   .menu {
     position: fixed;
