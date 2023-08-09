@@ -1,6 +1,6 @@
 {
-	"appId": "com.example.app",
-	"productName": "TIT&S Dashboard",
+	"appId": "net.mikunonaka.wdzd",
+	"productName": "Weeb Developerz Dashboard",
 	"directories": {
 		"output": "dist"
 	},

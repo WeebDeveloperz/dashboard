@@ -26,8 +26,9 @@
 </script>
 
 <div class="menu">
-  <a><button on:click={_ => window.location.replace("/files")}>Files</button></a>
+  <a><button on:click={_ => window.location.replace("/index-img")}>Upload Post</button></a>
   <a><button on:click={_ => window.location.replace("/subjects")}>Subjects</button></a>
+  <a><button on:click={_ => window.location.replace("/files")}>Files</button></a>
 </div>
 
 <style>
@@ -51,13 +52,13 @@
     margin: auto;
     top: 0; bottom: 0;
     left: 0; right: 0;
-    height: 2rem;
-    width: 20rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
   }
   button {
-    width: 6rem;
-    height: 2rem;
+    width: 7rem;
+    height: 2.2rem;
   }
 </style>

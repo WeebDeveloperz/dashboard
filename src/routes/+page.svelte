@@ -17,10 +17,16 @@
 -->
 
 <script>
+  import { onMount } from 'svelte';
   import { BASE_URL } from "../config.js"
-  let username = "";
+  let username; = localStorage.getItem("username") === null ? "" : localStorage.getItem("username");
   let password = "";
   let noticeText = "";
+
+  onMount(async () => {
+    username = localStorage.getItem("username") === null ? "" : localStorage.getItem("username");
+    loadFiles();
+  })
 
   const handleLogin = _ => {
     noticeText = username == "" ? "Username Can't Be Blank." : ""
@@ -42,6 +48,7 @@
           noticeText = `Error: ${data.error}`;
         } else {
           sessionStorage.setItem("authtoken", data.token);
+          localStorage.setItem("username", username);
           window.location.replace("/home");
         }
       });
@@ -77,7 +84,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    height: 95vh;
   }
   input {
     background-color: #232627;
