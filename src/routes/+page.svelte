@@ -19,7 +19,7 @@
 <script>
   import { onMount } from 'svelte';
   import { BASE_URL } from "../config.js"
-  let username; = localStorage.getItem("username") === null ? "" : localStorage.getItem("username");
+  let username;
   let password = "";
   let noticeText = "";
 
