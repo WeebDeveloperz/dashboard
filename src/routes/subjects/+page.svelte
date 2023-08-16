@@ -86,6 +86,7 @@
     <th>Branch</th>
     <th>Semester</th>
     <th>Subject Name</th>
+    <th>Image Path</th>
     <th>Subject Code</th>
     <button on:click={handleAddNew}>Add New</button>
   </tr>
@@ -95,6 +96,7 @@
         <td>{s.branch}</td>
         <td>{s.sem}</td>
         <td>{s.name}</td>
+        <td><a href={`https://apitesting.mikunonaka.net/pub/notes/${f.path}`}>{f.path}</a></td>
         <td>{s.code}</td>
         <button on:click={() => {showEditor = true; editorSubject = s}}>
           Edit

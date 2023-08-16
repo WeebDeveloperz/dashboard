@@ -5,6 +5,7 @@ export class Subject {
     this.name = "";
     this.sem = 0;
     this.branch = "";
+    this.path = "";
   }
 }
 

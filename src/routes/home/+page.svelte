@@ -29,6 +29,7 @@
   <a><button on:click={_ => window.location.replace("/index-img")}>Upload Post</button></a>
   <a><button on:click={_ => window.location.replace("/subjects")}>Subjects</button></a>
   <a><button on:click={_ => window.location.replace("/files")}>Files</button></a>
+  <a><button on:click={_ => window.location.replace("/movie")}>Movies</button></a>
 </div>
 
 <style>

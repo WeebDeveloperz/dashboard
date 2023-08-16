@@ -25,7 +25,6 @@
 
   onMount(async () => {
     username = localStorage.getItem("username") === null ? "" : localStorage.getItem("username");
-    loadFiles();
   })
 
   const handleLogin = _ => {

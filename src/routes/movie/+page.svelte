@@ -17,55 +17,32 @@
 -->
 
 <script>
-  import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
-  import FileEditor from "../../components/FileEditor.svelte";
-  import { File } from "../../classes.js";
+  import { onMount } from 'svelte';
+  import { BASE_URL } from "../../config.js"
   import Fa from 'svelte-fa/src/fa.svelte'
   import { faArrowLeft, faRotateRight } from '@fortawesome/free-solid-svg-icons'
-  import { BASE_URL } from "../../config.js"
 
-  // NOTE: this function does absolutely nothing and
-  // for now that is intentional. please don't exile me
-  const filterFiles = (files, searchString) => files;
+  let username;
+  let password = "";
+  let noticeText = "";
 
-  // TODO: optionally filter by branch
-  //const filterSubjects = (subjects, searchString) => [...new Set([
-  //  ...subjects.filter(i => i.code.toLowerCase().includes(searchString.toLowerCase())),
-  //  ...subjects.filter(i => i.name.toLowerCase().includes(searchString.toLowerCase())),
-  //])];
-
-  let files = [];
-  const loadFiles = () =>
-    fetch(BASE_URL + 'files')
+  let movies = [];
+  const loadMovies = () =>
+    fetch(BASE_URL + 'movies')
       .then(response => response.json())
-      .then(data => files = data.data);
+      .then(data => movies = data.data);
 
   onMount(async () => {
     if (!sessionStorage.getItem("authtoken")) {
       window.location.replace("/");
     }
-    loadFiles();
+    loadMovies();
   })
 
+  const filterMovies = (movies, searchString) => movies;
+
   let searchString = "";
-  let showEditor = false;
-  let editorFile = new File();
-
-  const handleAddNew = () => {
-    showEditor = true;
-    editorFile = new File();
-  }
-
-  const handleCancel = () => {
-    showEditor = false;
-    editorFile = new File();
-  }
-
-  const handleUpdate = () => {
-    loadFiles();
-    handleCancel();
-  }
 </script>
 
 <div class="back-button">
@@ -74,55 +51,51 @@
   </a>
 </div>
 
+<div class="searchbox">
+  Search Movies (disabled temporarily) <input bind:value={searchString}/>
+</div>
+
 <div class="reload-button">
-  <a href="" on:click={loadFiles}>
+  <a href="" on:click={loadMovies}>
     <Fa icon={faRotateRight}/>
   </a>
 </div>
 
-<div class="searchbox">
-  Search Files (disabled temporarily) <input bind:value={searchString}/>
-</div>
-
-{#key files}
+{#key movies}
 <table in:fade="{{ duration: 200, delay: 100 }}" out:fade="{{ duration: 300, delay: 0 }}">
   <tr>
-    <th>File Name</th>
-    <th>File Path</th>
-    <th>Subject Name / Code</th>
-    <button on:click={handleAddNew}>Add New</button>
+    <th>College ID</th>
+    <th>Student Name</th>
+    <th>Movie Title</th>
   </tr>
-  {#if files != []}
-    {#each filterFiles(files, searchString) as f}
+  {#if movies != []}
+    {#each filterMovies(movies, searchString) as m}
       <tr>
-        <td>{f.name}</td>
-        <td><a href={`https://apitesting.mikunonaka.net/pub/notes/${f.path}`}>{f.path}</a></td>
-        <td>{f.subject.name} / {f.subject.code}</td>
-        <button on:click={() => {showEditor = true; editorFile = f}}>
-          Edit
-        </button>
+        <td>{m.submitter_college_id}</td>
+        <td>{m.submitter_name}</td>
+        <td>{m.movie_title}</td>
+        <button on:click={handleDelete}>Delete</button>
       </tr>
     {:else}
-      <h1>No Files With This Name Found.</h1>
+      <h1>No Movies With This Filter Found.</h1>
     {/each}
   {:else}
-    <h1>No Files Exist In The Database.</h1>
+    <h1>No Movies Exist In The Database.</h1>
   {/if}
 </table>
 {/key}
-
-{#if showEditor}
-<div class="editor-parent" in:fade="{{ duration: 150 }}" out:fade="{{ duration: 200 }}">
-  <FileEditor file={editorFile} on:files-updated={handleUpdate} on:edit-canceled={handleCancel}/>
-</div>
-{/if}
 
 <style>
   * {
     font-family: sans-serif;
   }
-  h1 {
+  .login-page {
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
   }
   input {
     background-color: #232627;
@@ -141,7 +114,6 @@
     color: gray;
   }
   button {
-    padding: 0.4rem 0.2rem;
     border-radius: 4px;
     border: 1px solid #b481da;
     background-color: #232627;
@@ -153,6 +125,39 @@
     outline: 0;
     background-color: #b481da;
     color: #232627;
+  }
+  .button-wrapper {
+    width: 30rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .fields {
+    position: relative;
+  }
+  .field {
+    width: 30rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5rem 0;
+  }
+  .field input, .field select {
+    width: 60%;
+  }
+  .notice {
+    position: absolute;
+    bottom: -3rem;
+    text-align: center;
+
+    left: 0; right: 0;
+    margin: auto;
+  }
+  .warning {
+    color: red;
+  }
+  button {
+    width: 6rem;
+    height: 2rem;
   }
   .searchbox {
     width: 100%;
@@ -173,19 +178,6 @@
   th, td {
     text-align: left;
     border-bottom: 1px solid gray;
-  }
-  .editor-parent {
-    z-index: 10;
-    background-color: #232627;
-    position: fixed;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    margin: auto;
-    border: 1px solid #b481da;
-    max-height: 90%;
-    max-width: 90%;
-    height: 30rem;
-    width: 70rem;
   }
   .back-button, .reload-button {
     font-size: 2rem;

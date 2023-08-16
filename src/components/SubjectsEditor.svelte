@@ -23,17 +23,19 @@
   const dispatch = createEventDispatcher();
 
   export let subject = null;
+  let fObject = null;
 
   let noticeText = ""
   const validate = (subject) => {
-    //if (subject.DisplayName == "")
-    //  return "Display Name Can't Be Blank.";
+    if (fObject == null)
+      return "No file uploaded";
     return "";
   }
 
   const handleSave = async(method) => {
     noticeText = validate(subject);
     if (noticeText != "" && method !== "delete") return;
+    noticeText = method === "put" ? "File updation is disabled. Please delete file and upload again." : "";
     if (noticeText != "") return;
 
     subject.sem = parseInt(subject.sem)
@@ -78,6 +80,10 @@
     <div class="field">
       Subject Code:
       <input bind:value={subject.code} placeholder="Subject Code">
+    </div>
+    <div class="field">
+      Upload Card Image:
+      <input type="file" accept=".webp" on:change={e => fObject = e.target.files[0]}>
     </div>
   </div>
 
